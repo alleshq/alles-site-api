@@ -1,0 +1,21 @@
+{
+    "sessionTokenLifespan": "6h",
+    "validScopes": [
+        "basic-profile",
+        "post-content"
+    ],
+    "inputBounds": {
+        "name": {
+            "min": 1,
+            "max": 50
+        },
+        "nickname": {
+            "min": 1,
+            "max": 50
+        },
+        "about": {
+            "min": 1,
+            "max": 125
+        }
+    }
+}
