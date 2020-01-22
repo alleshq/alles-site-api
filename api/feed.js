@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
             author: {
                 id: author._id,
                 username: author.username,
-                nickname: author.nickname
+                name: author.name
             },
             content: p.content,
             date: p.date,
