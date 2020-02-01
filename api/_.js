@@ -14,7 +14,4 @@ router.post("/me", sessionAuth, require("./updateBasicProfile"));
 router.get("/application/:application", sessionAuth, require("./application"));
 router.post("/authorize", sessionAuth, require("./authorize"));
 
-//Feed
-router.get("/feed", sessionAuth, require("./feed"));
-
 module.exports = router;
