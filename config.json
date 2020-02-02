@@ -21,5 +21,10 @@
             "min": 6,
             "max": 128
         }
+    },
+    "fileUploadSize": 50,
+    "avatar": {
+        "maxSize": 200,
+        "storage": "../avatars/data"
     }
 }

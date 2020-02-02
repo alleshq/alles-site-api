@@ -10,6 +10,7 @@ router.post("/login", require("./login"));
 router.get("/me", sessionAuth, require("./me"));
 router.post("/me", sessionAuth, require("./updateBasicProfile"));
 router.post("/password", sessionAuth, require("./password"));
+router.post("/avatar", sessionAuth, require("./avatar"));
 
 //OAuth Authorization
 router.get("/application/:application", sessionAuth, require("./application"));
