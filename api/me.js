@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
         private: req.user.private,
         au: req.user.au,
         plus: {
-            status: plusStatus(req.user.plus),
+            active: plusStatus(req.user.plus),
             ...req.user.plus
         },
         rubies: req.user.rubies,
@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
 };
 
 const plusStatus = plus => {
-    if (!plus) return "inactive";
-    if (new Date(plus.until).getTime() < new Date().getTime()) return "expired";
-    return "active";
+    if (!plus) return false;
+    if (new Date(plus.until).getTime() < new Date().getTime()) return false;
+    return true;
 };
