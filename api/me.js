@@ -8,8 +8,8 @@ module.exports = async (req, res) => {
         private: req.user.private,
         au: req.user.au,
         plus: {
-            status: plusStatus(req.user.premium),
-            ...req.user.premium
+            status: plusStatus(req.user.plus),
+            ...req.user.plus
         },
         rubies: req.user.rubies,
         createdAt: req.user.createdAt
