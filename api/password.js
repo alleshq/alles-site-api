@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 module.exports = async (req, res) => {
     if (typeof req.body.oldPassword !== "string" || typeof req.body.newPassword !== "string") return res.status(400).json({err: "invalidBodyParameters"});
     if (req.body.newPassword.length < config.inputBounds.password.min || req.body.newPassword.length > config.inputBounds.password.max) return res.status(400).json({err: "passwordRequirements"});
+    if (req.body.newPassword === req.body.oldPassword) return res.status(400).json({err: "badPassword"});
     if (!bcrypt.compareSync(req.body.oldPassword, req.user.password)) return res.status(400).json({err: "oldPasswordIncorrect"});
 
     const hash = bcrypt.hashSync(req.body.newPassword, 10);
