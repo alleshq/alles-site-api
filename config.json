@@ -2,7 +2,7 @@
     "sessionTokenLifespan": "6h",
     "validScopes": [
         "basic-profile",
-        "post-content"
+        "team-list"
     ],
     "inputBounds": {
         "name": {
