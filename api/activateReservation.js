@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
         reputation: 0,
         rubies: 0,
         plus: {
-            until: new Date(1580690604736)
+            until: new Date(1609459200000)
         }
     };
     db("accounts").insertOne(user);
