@@ -9,7 +9,6 @@ module.exports = async (req, res) => {
     if (typeof req.body.code !== "string" || typeof req.body.password !== "string") return res.status(400).json({err: "invalidBodyParameters"});
     if (req.body.password.length < config.inputBounds.password.min || req.body.password.length > config.inputBounds.password.max) return res.status(400).json({err: "passwordRequirements"});
     const reservation = await db("reservations").findOne({code: req.body.code});
-    console.log(reservation);
     if (!reservation || reservation.account) return res.status(400).json({err: "invalidReservation"});
 
     //Create user
