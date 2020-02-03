@@ -16,4 +16,8 @@ router.post("/avatar", sessionAuth, require("./avatar"));
 router.get("/application/:application", sessionAuth, require("./application"));
 router.post("/authorize", sessionAuth, require("./authorize"));
 
+//Early Access Reservations
+router.get("/reservation", require("./reservationData"));
+router.post("/reservation", require("./activateReservation"));
+
 module.exports = router;
