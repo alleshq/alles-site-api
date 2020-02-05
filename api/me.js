@@ -1,3 +1,5 @@
+const plusStatus = require("../util/plusStatus");
+
 module.exports = async (req, res) => {
     res.json({
         id: req.user._id,
@@ -14,10 +16,4 @@ module.exports = async (req, res) => {
         rubies: req.user.rubies,
         createdAt: req.user.createdAt
     });
-};
-
-const plusStatus = plus => {
-    if (!plus) return false;
-    if (new Date(plus.until).getTime() < new Date().getTime()) return false;
-    return true;
 };
