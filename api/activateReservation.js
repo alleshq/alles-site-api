@@ -26,7 +26,8 @@ module.exports = async (req, res) => {
         rubies: 0,
         plus: {
             until: new Date(1609459200000)
-        }
+        },
+        followers: []
     };
     db("accounts").insertOne(user);
 
