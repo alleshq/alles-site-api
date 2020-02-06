@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
         req.body.nickname.length > config.inputBounds.nickname.max ||
         req.body.about.length < config.inputBounds.about.min ||
         req.body.about.length > config.inputBounds.about.max
-    ) return res.status(400).json({err: "badInput"});
+    ) return res.status(400).json({err: "invalidBodyParameters"});
 
     await db("accounts").updateOne({_id: req.user._id}, {$set: {
         name: req.body.name,

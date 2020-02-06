@@ -23,4 +23,7 @@ router.post("/authorize", sessionAuth, require("./authorize"));
 router.get("/reservation", require("./reservationData"));
 router.post("/reservation", require("./activateReservation"));
 
+//2030 Letters
+router.post("/2030", sessionAuth, require("./2030"));
+
 module.exports = router;
