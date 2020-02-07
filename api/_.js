@@ -19,6 +19,10 @@ router.get("/user", sessionAuth, require("./user"));
 router.get("/application/:application", sessionAuth, require("./application"));
 router.post("/authorize", sessionAuth, require("./authorize"));
 
+//Follow
+router.post("/follow/:id", sessionAuth, require("./follow"));
+router.post("/unfollow/:id", sessionAuth, require("./unfollow"));
+
 //Early Access Reservations
 router.get("/reservation", require("./reservationData"));
 router.post("/reservation", require("./activateReservation"));
