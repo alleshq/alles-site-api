@@ -7,11 +7,6 @@ app.listen(8081, () => {
     console.log("Listening on Express");
 });
 
-//Internal Error Handling
-app.use((err, req, res, next) => {
-    res.status(500).json({err: "internalError"});
-});
-
 //Body Parser
 const bodyParser = require("body-parser");
 app.use(bodyParser.json({extended: false}));
@@ -28,6 +23,11 @@ app.use(fileUpload({
         res.status(400).json({err: "fileUploadFailed"});
     }
 }));
+
+//Internal Error Handling
+app.use((err, req, res, next) => {
+    res.status(500).json({err: "internalError"});
+});
 
 //MongoDB Connected Check
 app.use((req, res, next) => {
