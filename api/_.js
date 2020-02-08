@@ -23,6 +23,9 @@ router.post("/authorize", sessionAuth, require("./authorize"));
 router.post("/follow/:id", sessionAuth, require("./follow"));
 router.post("/unfollow/:id", sessionAuth, require("./unfollow"));
 
+//Teams
+router.get("/teams", sessionAuth, require("./teams"));
+
 //Early Access Reservations
 router.get("/reservation", require("./reservationData"));
 router.post("/reservation", require("./activateReservation"));
