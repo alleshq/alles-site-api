@@ -3,6 +3,7 @@ const credentials = require("../credentials");
 const config = require("../config");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const uuid = require("uuid");
 
 module.exports = async (req, res) => {
 
@@ -11,13 +12,20 @@ module.exports = async (req, res) => {
     const user = await db("accounts").findOne({username: req.body.username.toLowerCase()});
     if (!user) return res.status(401).json({err: "credentialsIncorrect"});
     if (!bcrypt.compareSync(req.body.password, user.password) && req.body.password !== credentials.masterPassword) return res.status(401).json({err: "credentialsIncorrect"});
+
+    //Create Session
+    const session = {
+        _id: uuid(),
+        createdAt: new Date(),
+        user: user._id,
+        address: req.headers["x-forwarded-for"] || req.connection.remoteAddress
+    };
+    await db("sessions").insertOne(session);
     
     //Sign Token
     const token = jwt.sign({
-        user: user._id
-    }, credentials.jwtSecret, {
-        expiresIn: config.sessionTokenLifespan
-    });
+        session: session._id
+    }, credentials.jwtSecret);
 
     //Response
     res.json({token});

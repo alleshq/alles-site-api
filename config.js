@@ -2,7 +2,6 @@ const dev = process.env.NODE_ENV === "development";
 
 module.exports = {
     dev,
-    sessionTokenLifespan: "6h",
     validScopes: [
         "basic-profile",
         "team-list"
