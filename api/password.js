@@ -1,5 +1,6 @@
 const db = require("../util/mongo");
 const config = require("../config");
+const config = require("../credentials");
 const bcrypt = require("bcrypt");
 
 module.exports = async (req, res) => {
