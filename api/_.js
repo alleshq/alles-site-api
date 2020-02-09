@@ -8,7 +8,7 @@ router.post("/login", require("./login"));
 
 //Basic User Info
 router.get("/me", sessionAuth, require("./me"));
-router.post("/me", sessionAuth, require("./updateBasicProfile"));
+router.post("/me", sessionAuth, require("./profile"));
 router.post("/password", sessionAuth, require("./password"));
 router.post("/avatar", sessionAuth, require("./avatar"));
 
