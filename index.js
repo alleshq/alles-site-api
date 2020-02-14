@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 });
 
 //API
-app.use("/api", require("./api/_"));
+app.use("/api/v1", require("./api/v1/_"));
 
 //404
 app.use((req, res) => {
