@@ -1,5 +1,5 @@
-const config = require("../config");
-const db = require("../util/mongo");
+const config = require("../../config");
+const db = require("../../util/mongo");
 
 module.exports = async (req, res) => {
     if (

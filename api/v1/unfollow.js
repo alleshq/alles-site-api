@@ -1,4 +1,4 @@
-const db = require("../util/mongo");
+const db = require("../../util/mongo");
 
 module.exports = async (req, res) => {
     const user = await db("accounts").findOne({_id: req.params.id});

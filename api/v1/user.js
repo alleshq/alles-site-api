@@ -1,5 +1,5 @@
-const db = require("../util/mongo");
-const plusStatus = require("../util/plusStatus");
+const db = require("../../util/mongo");
+const plusStatus = require("../../util/plusStatus");
 
 module.exports = async (req, res) => {
     var dbSearch;

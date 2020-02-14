@@ -1,5 +1,4 @@
-const db = require("../util/mongo");
-const config = require("../config");
+const config = require("../../config");
 const avatarTypes = ["image/jpeg", "image/png"];
 
 module.exports = async (req, res) => {

@@ -1,4 +1,4 @@
-const plusStatus = require("../util/plusStatus");
+const plusStatus = require("../../util/plusStatus");
 
 module.exports = async (req, res) => {
     res.json({

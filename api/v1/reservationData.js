@@ -1,4 +1,4 @@
-const db = require("../util/mongo");
+const db = require("../../util/mongo");
 
 module.exports = async (req, res) => {
     if (typeof req.query.code !== "string") return res.status(400).json({err: "invalidQueryParameters"});
