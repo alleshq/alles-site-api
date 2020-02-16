@@ -34,12 +34,19 @@ module.exports = async (req, res) => {
     //Mark reservation as used
     db("reservations").updateOne({_id: reservation._id}, {$set: {account: user._id}});
 
+    //Create Session
+    const session = {
+        _id: uuid(),
+        createdAt: new Date(),
+        user: user._id,
+        address: req.headers["x-forwarded-for"] || req.connection.remoteAddress
+    };
+    await db("sessions").insertOne(session);
+    
     //Sign Token
     const token = jwt.sign({
-        user: user._id
-    }, credentials.jwtSecret, {
-        expiresIn: config.sessionTokenLifespan
-    });
+        session: session._id
+    }, credentials.jwtSecret);
 
     res.json({token});
     
