@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
     if (avatar.size > config.avatar.maxSize * 1024) return res.status(400).json({err: "avatarTooBig"}); //Avatar Size in Kilobytes
     if (!avatarTypes.includes(avatar.mimetype)) return res.status(400).json({err: "badFileType"});
 
-    const filePath = `${__dirname}/../${config.avatar.storage}/users/${req.user._id}`;
+    const filePath = `${__dirname}/../../${config.avatar.storage}/users/${req.user._id}`;
     avatar.mv(filePath);
 
     res.json({});
