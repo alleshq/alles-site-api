@@ -1,4 +1,4 @@
-const db = require("./mongo");
+const db = require("./db");
 const credentials = require("../credentials");
 const jwt = require("jsonwebtoken");
 
@@ -15,14 +15,15 @@ module.exports = async (req, res, next) => {
     }
 
     //Get Session
-    if (!token.session) return res.status(401).json({err: "invalidSession"}); //A bad token that's somehow signed has been used. This is very bad.
-    const session = await db("sessions").findOne({_id: token.session});
-
-    //Get User
-    const user = await db("accounts").findOne({_id: session.user});
-    if (!user) return res.status(401).json({err: "invalidSession"});
+    const session = await db.Session.findOne({
+        where: {
+            id: token.session
+        },
+        include: ["user"]
+    });
+    if (!session) return res.status(401).json({err: "invalidSession"});
     
-    req.user = user;
+    req.user = session.user;
     next();
 
 };

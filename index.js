@@ -3,8 +3,45 @@ const config = require("./config");
 //Express
 const express = require("express");
 const app = express();
-app.listen(8081, () => {
-    console.log("Listening on Express");
+
+//Database
+const db = require("./util/db");
+db.sync({force: true}).then(() => {
+    //Express Listen
+    app.listen(8081, async () => {
+        console.log("Listening on Express");
+
+        const archie = await db.User.create({
+            id: require("uuid/v4")(),
+            username: "archie",
+            password: "",
+            name: "Archie Baer",
+            nickname: "Hi! I'm Archie!",
+            about: "this is a test",
+            usesLegacyPassword: true,
+            plus: true
+        });
+
+        const jessica = await db.User.create({
+            id: require("uuid/v4")(),
+            username: "jessica",
+            password: "",
+            name: "Jessica Adams",
+            nickname: "Hi! I'm Jessica!",
+            about: "this is a test",
+            usesLegacyPassword: true,
+            plus: true
+        });
+
+        const alles = await db.Team.create({
+            id: "alles",
+            name: "Alles",
+            slug: "alles",
+            developer: true
+        });
+
+        archie.addTeam(alles);
+    });
 });
 
 //Body Parser
@@ -29,25 +66,10 @@ app.use((err, req, res, next) => {
     res.status(500).json({err: "internalError"});
 });
 
-//MongoDB Connected Check
-app.use((req, res, next) => {
-    if (connected) return next();
-    res.status(502).json({err: "notReady"});
-});
-
 //API
 app.use("/api/v1", require("./api/v1/_"));
 
 //404
 app.use((req, res) => {
     res.status(404).json({err: "invalidRoute"});
-});
-
-//MongoDB
-const {connect} = require("./util/mongo");
-var connected = false;
-connect((err) => {
-    if (err) throw err;
-    connected = true;
-    console.log("Connected to MongoDB");
 });

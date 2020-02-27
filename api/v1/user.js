@@ -1,35 +1,34 @@
-const db = require("../../util/mongo");
-const plusStatus = require("../../util/plusStatus");
+const db = require("../../util/db");
 
 module.exports = async (req, res) => {
-    var dbSearch;
+    var searchWithUsername;
     if (typeof req.query.id === "string") {
-        dbSearch = {_id: req.query.id};
+        searchWithUsername = false;
     } else if (typeof req.query.username === "string") {
-        dbSearch = {username: req.query.username};
+        searchWithUsername = true;
     } else {
         return res.status(400).json({err: "invalidQueryParameters"});
     }
-    const user = await db("accounts").findOne(dbSearch);
+    const user = await db.User.findOne({
+        where: {
+            [searchWithUsername ? "username" : "id"]: searchWithUsername ? req.query.username : req.query.id
+        }
+    })
     if (!user) return res.status(400).json({err: "invalidUser"});
 
-    //User Response
-    const followed = user.followers.includes(req.user._id);
-    var userData = {
-        id: user._id,
+    //Response
+    res.json({
+        id: user.id,
         username: user.username,
         name: user.name,
         nickname: user.nickname,
         about: user.about,
         private: user.private,
-        followers: user.followers.length,
-        followed,
+        followers: await user.countFollowers(),
+        isFollowing: await user.hasFollower(req.user),
         joinDate: user.createdAt,
         rubies: user.rubies,
-        plus: plusStatus(user.plus)
-    };
-
-    //Respond
-    res.json(userData);
+        plus: user.plus
+    });
 
 };

@@ -22,9 +22,6 @@ module.exports = {
         password: {
             min: 6,
             max: 128
-        },
-        twentythirty: {
-            max: 5000
         }
     },
     fileUploadSize: 50,

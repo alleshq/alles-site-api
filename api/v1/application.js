@@ -1,28 +1,31 @@
-const db = require("../../util/mongo");
+const db = require("../../util/db");
 
 module.exports = async (req, res) => {
     
     //Get Application
-    const application = await db("applications").findOne({_id: req.params.application});
+    const application = await db.Application.findOne({
+        where: {
+            id: req.params.application
+        },
+        include: ["team"]
+    });
     if (!application) return res.status(400).json({err: "invalidApplication"});
-    const team = await db("teams").findOne({_id: application.team});
-    if (!team) return res.status(400).json({err: "orphanedApplication"});
-    if (!team.developer) return res.status(400).json({err: "applicationDisabled"});
+    if (!application.team.developer) return res.status(400).json({err: "applicationDisabled"});
 
     //Response
     res.json({
-        id: application._id,
+        id: application.id,
         team: {
-            id: team._id,
-            name: team.name,
-            teamid: team.teamid,
-            verified: team.verified
+            id: application.team.id,
+            name: application.team.name,
+            slug: application.team.slug,
+            verified: application.team.verified
         },
         name: application.name,
         description: application.description,
         firstParty: application.firstParty,
-        creationDate: application.creationDate,
-        callbackUrls: application.signin.callbackUrls
+        createdAt: application.createdAt,
+        callbackUrls: application.callbackUrls
     });
 
 };

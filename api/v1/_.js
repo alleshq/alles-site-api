@@ -1,6 +1,5 @@
 const express = require("express");
 const sessionAuth = require("../../util/sessionAuth");
-
 const router = express.Router();
 
 //Sign in
@@ -25,9 +24,5 @@ router.post("/unfollow/:id", sessionAuth, require("./unfollow"));
 
 //Teams
 router.get("/teams", sessionAuth, require("./teams"));
-
-//Early Access Reservations
-router.get("/reservation", require("./reservationData"));
-router.post("/reservation", require("./activateReservation"));
 
 module.exports = router;

@@ -1,15 +1,7 @@
-const db = require("../../util/mongo");
-
 module.exports = async (req, res) => {
-    const teams = (
-        await db("teams").find({
-            [`users.${req.user._id}`]: {
-                $exists: true
-            }
-        }).toArray()
-    ).map(team => ({
-        id: team._id,
-        teamid: team.teamid,
+    const teams = (await req.user.getTeams()).map(team => ({
+        id: team.id,
+        slug: team.slug,
         name: team.name
     }));
 

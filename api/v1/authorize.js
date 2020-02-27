@@ -1,4 +1,4 @@
-const db = require("../../util/mongo");
+const db = require("../../util/db");
 const config = require("../../config");
 const uuid = require("uuid/v4");
 const randomString = require("randomstring").generate;
@@ -15,27 +15,27 @@ module.exports = async (req, res) => {
     }
 
     //Get Application
-    const application = await db("applications").findOne({_id: req.body.application});
+    const application = await db.Application.findOne({
+        where: {
+            id: req.body.application
+        },
+        include: ["team"]
+    });
     if (!application) return res.status(400).json({err: "invalidApplication"});
-    const team = await db("teams").findOne({_id: application.team});
-    if (!team) return res.status(400).json({err: "orphanedApplication"});
-    if (!team.developer) return res.status(400).json({err: "applicationDisabled"});
+    if (!application.team.developer) return res.status(400).json({err: "applicationDisabled"});
 
     //Verify Redirect URI
-    if (!application.signin.callbackUrls.includes(req.body.redirectUri)) return res.status(400).json({err: "invalidRedirectUri"});
+    if (!application.callbackUrls.includes(req.body.redirectUri)) return res.status(400).json({err: "invalidRedirectUri"});
 
     //Create code
-    const code = {
-        _id: uuid(),
-        user: req.user._id,
-        application: application._id,
+    const code = await db.AuthCode.create({
+        id: uuid(),
         code: randomString(128),
-        createdAt: new Date(),
-        used: false,
         redirectUri: req.body.redirectUri,
         scopes
-    };
-    db("authCodes").insertOne(code);
+    });
+    code.setUser(req.user);
+    code.setApplication(application);
 
     res.json({code: code.code});
     

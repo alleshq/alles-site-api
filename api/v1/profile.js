@@ -1,5 +1,4 @@
 const config = require("../../config");
-const db = require("../../util/mongo");
 
 module.exports = async (req, res) => {
     if (
@@ -21,11 +20,11 @@ module.exports = async (req, res) => {
         about.length > config.inputBounds.about.max
     ) return res.status(400).json({err: "invalidBodyParameters"});
 
-    await db("accounts").updateOne({_id: req.user._id}, {$set: {
+    await req.user.update({
         name: fullname,
         nickname,
         about
-    }});
+    });
 
     res.json({});
 };
