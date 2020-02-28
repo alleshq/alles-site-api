@@ -6,41 +6,10 @@ const app = express();
 
 //Database
 const db = require("./util/db");
-db.sync({force: true}).then(() => {
+db.sync().then(() => {
     //Express Listen
     app.listen(8081, async () => {
         console.log("Listening on Express");
-
-        const archie = await db.User.create({
-            id: require("uuid/v4")(),
-            username: "archie",
-            password: "",
-            name: "Archie Baer",
-            nickname: "Hi! I'm Archie!",
-            about: "this is a test",
-            usesLegacyPassword: true,
-            plus: true
-        });
-
-        const jessica = await db.User.create({
-            id: require("uuid/v4")(),
-            username: "jessica",
-            password: "",
-            name: "Jessica Adams",
-            nickname: "Hi! I'm Jessica!",
-            about: "this is a test",
-            usesLegacyPassword: true,
-            plus: true
-        });
-
-        const alles = await db.Team.create({
-            id: "alles",
-            name: "Alles",
-            slug: "alles",
-            developer: true
-        });
-
-        archie.addTeam(alles);
     });
 });
 
