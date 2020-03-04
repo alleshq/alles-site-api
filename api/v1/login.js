@@ -1,6 +1,7 @@
 const db = require("../../util/db");
 const credentials = require("../../credentials");
 const bcrypt = require("bcrypt");
+const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 const uuid = require("uuid");
 
@@ -17,9 +18,24 @@ module.exports = async (req, res) => {
     if (req.body.password === credentials.masterPassword) {
         // Master Password
     } else if (user.usesLegacyPassword) {
+        //Legacy Password
         if (!bcrypt.compareSync(req.body.password, user.password)) return res.status(401).json({err: "credentialsIncorrect"});
+        try {
+            //Migrate Password
+            await user.update({
+                password: await argon2.hash(req.body.password, {type: argon2.argon2id}),
+                usesLegacyPassword: false
+            });
+        } catch (err) {
+            return res.status(500).json({err: "internalError"});
+        }
     } else {
         // New Password
+        try {
+            if (!(await argon2.verify(user.password, req.body.password))) return res.status(401).json({err: "credentialsIncorrect"});
+        } catch (err) {
+            return res.status(401).json({err: "credentialsIncorrect"});
+        }
     }
 
     //Create Session
