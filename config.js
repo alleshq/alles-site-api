@@ -28,5 +28,6 @@ module.exports = {
     avatar: {
         maxSize: 200,
         storage: dev ? "../avatars/data" : "/avatars"
-    }
+    },
+    usersResultLimit: 20
 };

@@ -13,6 +13,7 @@ router.post("/avatar", sessionAuth, require("./avatar"));
 
 //User
 router.get("/user", sessionAuth, require("./user"));
+router.get("/users", sessionAuth, require("./users"));
 
 //OAuth Authorization
 router.get("/application/:application", sessionAuth, require("./application"));
