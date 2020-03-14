@@ -20,16 +20,26 @@ module.exports = async (req, res) => {
     //Get Users
     const users = await db.User.findAll({
         where: dbQuery,
+        attributes: ["id", "username", "name", "plus"],
         order: ["username"],
         limit: config.usersResultLimit
     });
 
+    //Get IDs of first/last users (pagination)
+    const first = await db.User.findOne({
+        attributes: ["id"],
+        order: [["username", "ASC"]]
+    });
+    const last = await db.User.findOne({
+        attributes: ["id"],
+        order: [["username", "DESC"]]
+    });
+
     //Response
-    res.json(users.map(u => ({
-        id: u.id,
-        username: u.username,
-        name: u.name,
-        plus: u.plus
-    })));
+    res.json({
+        users,
+        firstPage: !first || users.map(u => u.id).includes(first.id),
+        lastPage: !last || users.map(u => u.id).includes(last.id)
+    });
 
 };
