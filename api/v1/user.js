@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
         where: {
             [searchWithUsername ? "username" : "id"]: searchWithUsername ? req.query.username : req.query.id
         }
-    })
+    });
     if (!user) return res.status(400).json({err: "invalidUser"});
 
     //Response
