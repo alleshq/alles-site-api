@@ -7,6 +7,7 @@ module.exports = async (req, res) => {
     var dbQuery = {
         private: false
     };
+    var backwards = false;
     if (typeof req.query.after === "string") {
         dbQuery.username = {
             [Op.gt]: req.query.after
@@ -15,15 +16,17 @@ module.exports = async (req, res) => {
         dbQuery.username = {
             [Op.lt]: req.query.before
         };
+        backwards = true;
     }
 
     //Get Users
     const users = await db.User.findAll({
         where: dbQuery,
         attributes: ["id", "username", "name", "plus"],
-        order: ["username"],
+        order: [["username", backwards ? "DESC" : "ASC"]],
         limit: config.usersResultLimit
     });
+    if (backwards) users.reverse();
 
     //Get IDs of first/last users (pagination)
     const first = await db.User.findOne({
