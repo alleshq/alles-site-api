@@ -25,6 +25,11 @@ module.exports = async (req, res) => {
     });
 
     //Response
-    res.json(users);
+    res.json(users.map(u => ({
+        id: u.id,
+        username: u.username,
+        name: u.name,
+        plus: u.plus
+    })));
 
 };
