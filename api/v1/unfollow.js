@@ -8,9 +8,6 @@ module.exports = async (req, res) => {
     });
     if (!user) return res.status(400).json({err: "invalidUser"});
 
-    //Same User
-    if (user.id === req.user.id) return res.status(400).json({err: "cannotFollowSelf"});
-
     //Not Followed
     if (!(await user.hasFollower(req.user))) return res.json({});
 
