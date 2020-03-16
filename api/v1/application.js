@@ -1,31 +1,30 @@
 const db = require("../../util/db");
 
 module.exports = async (req, res) => {
-    
-    //Get Application
-    const application = await db.Application.findOne({
-        where: {
-            id: req.params.application
-        },
-        include: ["team"]
-    });
-    if (!application) return res.status(400).json({err: "invalidApplication"});
-    if (!application.team.developer) return res.status(400).json({err: "applicationDisabled"});
+	//Get Application
+	const application = await db.Application.findOne({
+		where: {
+			id: req.params.application
+		},
+		include: ["team"]
+	});
+	if (!application) return res.status(400).json({err: "invalidApplication"});
+	if (!application.team.developer)
+		return res.status(400).json({err: "applicationDisabled"});
 
-    //Response
-    res.json({
-        id: application.id,
-        team: {
-            id: application.team.id,
-            name: application.team.name,
-            slug: application.team.slug,
-            verified: application.team.verified
-        },
-        name: application.name,
-        description: application.description,
-        firstParty: application.firstParty,
-        createdAt: application.createdAt,
-        callbackUrls: application.callbackUrls
-    });
-
+	//Response
+	res.json({
+		id: application.id,
+		team: {
+			id: application.team.id,
+			name: application.team.name,
+			slug: application.team.slug,
+			verified: application.team.verified
+		},
+		name: application.name,
+		description: application.description,
+		firstParty: application.firstParty,
+		createdAt: application.createdAt,
+		callbackUrls: application.callbackUrls
+	});
 };
