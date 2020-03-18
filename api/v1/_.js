@@ -23,6 +23,10 @@ router.post("/authorize", sessionAuth, require("./authorize"));
 router.post("/follow/:id", sessionAuth, require("./follow"));
 router.post("/unfollow/:id", sessionAuth, require("./unfollow"));
 
+//Accounts
+router.get("/accounts", sessionAuth, require("./accounts"));
+router.post("/accounts/switch/:id", sessionAuth, require("./switchAccount"));
+
 //Teams
 router.get("/teams", sessionAuth, require("./teams"));
 
