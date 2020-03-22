@@ -18,15 +18,26 @@ router.post("/follow/:id", sessionAuth, require("./users/follow"));
 router.post("/unfollow/:id", sessionAuth, require("./users/unfollow"));
 
 //OAuth Authorization
-router.get("/application/:application", sessionAuth, require("./oauth/application"));
+router.get(
+	"/application/:application",
+	sessionAuth,
+	require("./oauth/application")
+);
 router.post("/authorize", sessionAuth, require("./oauth/authorize"));
 
 //Accounts
 router.get("/accounts", sessionAuth, require("./accounts/accounts"));
-router.post("/accounts/switch/:id", sessionAuth, require("./accounts/switchAccount"));
+router.post(
+	"/accounts/switch/:id",
+	sessionAuth,
+	require("./accounts/switchAccount")
+);
 
 //Teams
 router.get("/team", sessionAuth, require("./teams/team"));
 router.get("/teams", sessionAuth, require("./teams/teams"));
+
+//Au
+router.get("/au/accounts", sessionAuth, require("./au/accounts"));
 
 module.exports = router;
