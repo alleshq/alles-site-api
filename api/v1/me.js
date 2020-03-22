@@ -8,7 +8,6 @@ module.exports = async (req, res) => {
 		nickname: req.user.nickname,
 		about: req.user.about,
 		private: req.user.private,
-		au: 0,
 		plus: req.user.plus,
 		rubies: req.user.rubies,
 		createdAt: req.user.createdAt,
