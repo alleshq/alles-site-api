@@ -28,6 +28,7 @@ router.get("/accounts", sessionAuth, require("./accounts"));
 router.post("/accounts/switch/:id", sessionAuth, require("./switchAccount"));
 
 //Teams
+router.get("/team", sessionAuth, require("./team"));
 router.get("/teams", sessionAuth, require("./teams"));
 
 module.exports = router;
