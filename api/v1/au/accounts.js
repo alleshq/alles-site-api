@@ -19,28 +19,32 @@ module.exports = async (req, res) => {
 		})
 	)
 		.map(m => (m.admin || m.roles.includes("au") ? m.teamId : null))
-        .filter(Boolean);
-    
-    //Get Au Accounts from team
-    const teamAccounts = await Promise.all((await db.AuAccount.findAll({
-        where: {
-            teamId: {
-                [Op.in]: teams
-            }
-        }
-    })).map(async acc => {
-        const team = await acc.getTeam();
-        return {
-            id: acc.id,
-            name: acc.name,
-            balance: acc.balance,
-            createdAt: acc.createdAt,
-            team: team.slug
-        };
-    }));
+		.filter(Boolean);
 
-    //Response
+	//Get Au Accounts from team
+	const teamAccounts = await Promise.all(
+		(
+			await db.AuAccount.findAll({
+				where: {
+					teamId: {
+						[Op.in]: teams
+					}
+				}
+			})
+		).map(async acc => {
+			const team = await acc.getTeam();
+			return {
+				id: acc.id,
+				name: acc.name,
+				balance: acc.balance,
+				createdAt: acc.createdAt,
+				team: team.slug
+			};
+		})
+	);
+
+	//Response
 	res.json({
-        accounts: personalAccounts.concat(teamAccounts)
-    });
+		accounts: personalAccounts.concat(teamAccounts)
+	});
 };
