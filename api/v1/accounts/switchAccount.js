@@ -16,12 +16,12 @@ module.exports = async (req, res) => {
 		req.params.id !== (primary ? primary : req.user).id &&
 		!secondaries.includes(req.params.id)
 	)
-        return res.status(400).json({err: "accountNotRelated"});
-    
-    //Update Session
-    await req.session.update({
-        userId: req.params.id
-    });
+		return res.status(400).json({err: "accountNotRelated"});
+
+	//Update Session
+	await req.session.update({
+		userId: req.params.id
+	});
 
 	//Response
 	res.json({});

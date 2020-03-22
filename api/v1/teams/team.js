@@ -8,9 +8,9 @@ module.exports = async (req, res) => {
 		searchWithSlug = true;
 	} else {
 		return res.status(400).json({err: "invalidQueryParameters"});
-    }
-    
-    //Get Team
+	}
+
+	//Get Team
 	const team = await db.Team.findOne({
 		where: {
 			[searchWithSlug ? "slug" : "id"]: searchWithSlug
@@ -18,8 +18,8 @@ module.exports = async (req, res) => {
 				: req.query.id
 		}
 	});
-    if (!team) return res.status(400).json({err: "invalidTeam"});
-    
+	if (!team) return res.status(400).json({err: "invalidTeam"});
+
 	//Get TeamMember
 	const teamMember = await db.TeamMember.findOne({
 		where: {
@@ -33,16 +33,16 @@ module.exports = async (req, res) => {
 
 	//Response
 	res.json({
-        id: team.id,
-        name: team.name,
-        slug: team.slug,
-        verified: team.verified,
+		id: team.id,
+		name: team.name,
+		slug: team.slug,
+		verified: team.verified,
 		developer: team.developer,
 		memberCount,
 		isMember: teamMember !== null,
 		isAdmin: teamMember ? teamMember.admin : null,
 		roles: teamMember ? teamMember.roles : null,
-        plan: teamMember ? team.plan : null,
-        stardust: teamMember ? team.stardust : null
+		plan: teamMember ? team.plan : null,
+		stardust: teamMember ? team.stardust : null
 	});
 };
