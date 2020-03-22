@@ -20,8 +20,13 @@ module.exports = async (req, res) => {
 	});
     if (!team) return res.status(400).json({err: "invalidTeam"});
     
-    //If User is in Team
-    const userIsMember = await team.hasMember(req.user);
+	//Get TeamMember
+	const teamMember = await db.TeamMember.findOne({
+		where: {
+			userId: req.user.id,
+			teamId: team.id
+		}
+	});
 
 	//Response
 	res.json({
@@ -29,8 +34,11 @@ module.exports = async (req, res) => {
         name: team.name,
         slug: team.slug,
         verified: team.verified,
-        developer: team.developer,
-        plan: userIsMember ? team.plan : null,
-        stardust: userIsMember ? team.stardust : null
+		developer: team.developer,
+		isMember: teamMember !== null,
+		isAdmin: teamMember ? teamMember.admin : null,
+		roles: teamMember ? teamMember.roles : null,
+        plan: teamMember ? team.plan : null,
+        stardust: teamMember ? team.stardust : null
 	});
 };
