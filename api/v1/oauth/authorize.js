@@ -1,5 +1,5 @@
-const db = require("../../util/db");
-const config = require("../../config");
+const db = require("../../../util/db");
+const config = require("../../../config");
 const uuid = require("uuid/v4");
 const randomString = require("randomstring").generate;
 

@@ -1,4 +1,4 @@
-const db = require("../../util/db");
+const db = require("../../../util/db");
 
 module.exports = async (req, res) => {
 	var searchWithUsername;

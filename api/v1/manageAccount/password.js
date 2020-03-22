@@ -1,5 +1,5 @@
-const config = require("../../config");
-const credentials = require("../../credentials");
+const config = require("../../../config");
+const credentials = require("../../../credentials");
 const bcrypt = require("bcrypt");
 const argon2 = require("argon2");
 

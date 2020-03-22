@@ -194,8 +194,8 @@ core-util-is@~1.0.0:
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
 "coredb-models@https://github.com/alleshq/coredb-models":
-  version "0.0.2"
-  resolved "https://github.com/alleshq/coredb-models#7d5cccd92cd699198ec68d4cda95a7dd821d8407"
+  version "0.0.4"
+  resolved "https://github.com/alleshq/coredb-models#999e9006906c5b69f245419d04e7735aa1573b2e"
   dependencies:
     prettier "^1.19.1"
 

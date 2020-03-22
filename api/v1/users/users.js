@@ -1,5 +1,5 @@
-const db = require("../../util/db");
-const config = require("../../config");
+const db = require("../../../util/db");
+const config = require("../../../config");
 const {Op} = require("sequelize");
 
 module.exports = async (req, res) => {
