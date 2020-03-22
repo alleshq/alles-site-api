@@ -28,6 +28,9 @@ module.exports = async (req, res) => {
 		}
 	});
 
+	//Get Member Count
+	const memberCount = await team.countMembers();
+
 	//Response
 	res.json({
         id: team.id,
@@ -35,6 +38,7 @@ module.exports = async (req, res) => {
         slug: team.slug,
         verified: team.verified,
 		developer: team.developer,
+		memberCount,
 		isMember: teamMember !== null,
 		isAdmin: teamMember ? teamMember.admin : null,
 		roles: teamMember ? teamMember.roles : null,
