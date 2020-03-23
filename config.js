@@ -19,6 +19,18 @@ module.exports = {
 		password: {
 			min: 6,
 			max: 128
+		},
+		auTransactionAmount: {
+			min: 10,
+			max: 1000000
+		},
+		auTransactionMeta: {
+			min: 5,
+			max: 100
+		},
+		auTransactionRedirect: {
+			min: 5,
+			max: 150
 		}
 	},
 	fileUploadSize: 50,
@@ -26,5 +38,7 @@ module.exports = {
 		maxSize: 200,
 		storage: dev ? "../avatars/data" : "/avatars"
 	},
-	usersResultLimit: 20
+	usersResultLimit: 20,
+	auFee: 1,
+	auVault: "1ba148ae-2d45-4f0b-92ef-1d254635e330"
 };

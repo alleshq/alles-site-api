@@ -40,5 +40,6 @@ router.get("/teams", sessionAuth, require("./teams/teams"));
 //Au
 router.get("/au/accounts", sessionAuth, require("./au/accounts"));
 router.get("/au/account/:id", sessionAuth, require("./au/account"));
+router.post("/au/pay/:id", sessionAuth, require("./au/pay"));
 
 module.exports = router;
