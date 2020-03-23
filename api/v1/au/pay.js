@@ -32,10 +32,11 @@ module.exports = async (req, res) => {
 			!validUrl(req.body.redirect)
 		)
 			return res.status(400).json({err: "invalidBodyParameters"});
-    }
-    
-    //Prevent Paying Self
-    if (req.params.id === req.body.from) return res.status(400).json({err: "cannotPaySelf"});
+	}
+
+	//Prevent Paying Self
+	if (req.params.id === req.body.from)
+		return res.status(400).json({err: "cannotPaySelf"});
 
 	//Get To Account
 	const to = await db.AuAccount.findOne({
@@ -85,23 +86,23 @@ module.exports = async (req, res) => {
 
 	//Update Balances
 	await from.update({
-        balance: from.balance - amount
-    });
+		balance: from.balance - amount
+	});
 	await to.update({
-        balance: to.balance + amount - config.auFee
-    });
-    
-    //Add to Vault
-    const vault = await db.AuAccount.findOne({
-        where: {
-            id: config.auVault
-        }
-    });
-    if (vault) {
-        await vault.update({
-            balance: vault.balance + config.auFee
-        });
-    }
+		balance: to.balance + amount - config.auFee
+	});
+
+	//Add to Vault
+	const vault = await db.AuAccount.findOne({
+		where: {
+			id: config.auVault
+		}
+	});
+	if (vault) {
+		await vault.update({
+			balance: vault.balance + config.auFee
+		});
+	}
 
 	//Response
 	res.json({

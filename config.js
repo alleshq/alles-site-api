@@ -40,5 +40,6 @@ module.exports = {
 	},
 	usersResultLimit: 20,
 	auFee: 1,
-	auVault: "1ba148ae-2d45-4f0b-92ef-1d254635e330"
+	auVault: "1ba148ae-2d45-4f0b-92ef-1d254635e330",
+	auSecretLength: 128
 };
