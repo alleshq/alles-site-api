@@ -49,6 +49,7 @@ module.exports = async (req, res) => {
 			id: account.id,
 			createdAt: account.createdAt,
 			hasAccess,
+			secret: hasAccess ? account.secret : null,
 			name: hasAccess ? account.name : null,
 			balance: hasAccess ? account.balance : null,
 			team: hasAccess && team ? team.slug : null
