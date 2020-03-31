@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
 	if (avatar.mimetype !== "image/png")
 		return res.status(400).json({err: "badFileType"});
 
-	const filePath = `${__dirname}/../../${config.avatar.storage}/users/${req.user.id}`;
+	const filePath = `${__dirname}/../../../${config.avatar.storage}/users/${req.user.id}`;
 	avatar.mv(filePath);
 
 	res.json({});
