@@ -37,10 +37,4 @@ router.post(
 router.get("/team", sessionAuth, require("./teams/team"));
 router.get("/teams", sessionAuth, require("./teams/teams"));
 
-//Au
-router.get("/au/accounts", sessionAuth, require("./au/accounts"));
-router.get("/au/account/:id", sessionAuth, require("./au/account"));
-router.post("/au/pay/:id", sessionAuth, require("./au/pay"));
-router.post("/au/secret/:id", sessionAuth, require("./au/secret"));
-
 module.exports = router;
