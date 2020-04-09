@@ -2,7 +2,7 @@ const dev = process.env.NODE_ENV === "development";
 
 module.exports = {
 	dev,
-	validScopes: ["basic-profile", "team-list"],
+	validScopes: ["teams"],
 	inputBounds: {
 		name: {
 			min: 1,
