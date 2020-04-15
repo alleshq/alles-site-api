@@ -34,7 +34,7 @@ router.post(
 );
 
 //Teams
-router.get("/team", sessionAuth, require("./teams/team"));
 router.get("/teams", sessionAuth, require("./teams/teams"));
+router.get("/team/:slug/members", sessionAuth, require("./teams/members"));
 
 module.exports = router;
