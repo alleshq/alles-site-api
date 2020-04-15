@@ -22,7 +22,7 @@ module.exports = async (req, res, next) => {
 	});
 	if (!session) return res.status(401).json({err: "invalidSession"});
 
-	req.session = await session;
+	req.session = session;
 	req.user = await session.getUser();
 	next();
 };
